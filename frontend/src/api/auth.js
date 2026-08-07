@@ -8,6 +8,10 @@ export function register(payload) {
   return apiClient.post('/auth/register', payload);
 }
 
+export function registerTransporter(payload) {
+  return apiClient.post('/auth/register-transporter', payload);
+}
+
 export function fetchMe() {
   return apiClient.get('/auth/me');
 }

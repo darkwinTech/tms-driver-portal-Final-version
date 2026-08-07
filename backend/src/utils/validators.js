@@ -13,6 +13,21 @@ export function isValidPhone(value) {
   return typeof value === 'string' && PHONE_REGEX.test(value.trim());
 }
 
+// Free-mail providers aren't acceptable as a transporter's "company email" -
+// evidence of a real company account, checked at registration time. The
+// Operations Manager still does the real vetting (company name + contract
+// number) at approval time - this is just a first filter.
+const FREE_EMAIL_DOMAINS = new Set([
+  'gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com',
+  'aol.com', 'live.com', 'msn.com', 'protonmail.com', 'mail.com',
+]);
+
+export function isCompanyEmail(value) {
+  if (!isValidEmail(value)) return false;
+  const domain = value.trim().toLowerCase().split('@')[1];
+  return !FREE_EMAIL_DOMAINS.has(domain);
+}
+
 function isEmptyValue(value) {
   if (value === null || value === undefined) return true;
   if (typeof value === 'string') return value.trim() === '';

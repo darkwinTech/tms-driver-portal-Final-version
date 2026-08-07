@@ -1,18 +1,32 @@
 # Database
 
-`schema.sql` is a T-SQL script meant to be run manually in SSMS against the
-team's existing SQL Server instance. It creates a dedicated `tms` schema and
-tables for this app, seeds the two lookup tables, and creates a least-
-privilege `tms_app` login scoped to that schema only.
+`schema.mysql.sql` creates the app's MySQL schema: `users`, `requests`,
+`drivers`, `history`, `attachments`, `notifications`, plus a least-privilege
+`tms_app` user scoped to the `tms_driver_portal` database only. It's
+idempotent - safe to re-run against a database that already has some or all
+of these tables (it upgrades older copies in place via `information_schema`
+checks rather than dropping anything).
 
-**The backend does not connect to this schema yet.** `backend/src/data/`
-still runs entirely on an in-memory mock store that resets on every restart.
-This script is a forward-looking schema design; wiring the backend's
-repositories up to SQL Server (e.g. via the `mssql`/`tedious` driver) is a
-separate, later piece of work.
+Setup:
 
-Recommended first run: execute against a scratch/test database, confirm it
-runs clean end-to-end, then run it against the real shared database.
+```bash
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS tms_driver_portal CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root tms_driver_portal < db/schema.mysql.sql
+```
+
+Then set `DB_HOST` / `DB_PORT` / `DB_USER` / `DB_PASSWORD` / `DB_NAME` in
+`backend/.env` (use the `tms_app` user the script creates, not root), and run
+`npm run seed` from `backend/` to load the demo dataset (`backend/src/data/
+seed.js`) - 8 accounts (see that file for the account/role list; the shared
+demo password is in `DEMO_PASSWORD`) plus a handful of sample requests.
+
+The backend connects via `backend/src/data/db.js` (a `mysql2` connection
+pool); every repository in `backend/src/data/repositories/*.js` reads and
+writes through it.
+
+An earlier version of this schema targeted SQL Server (T-SQL, run manually
+in SSMS) but was never wired up to the backend and has been removed in favor
+of MySQL, which is what's actually deployed here.
 
 ## Resolved dependency risk (previously documented here, now fixed)
 

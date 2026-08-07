@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { listPendingUsers } from '../../api/users.js';
 import logo from '/logo.png'
 
 const NEW_REQUEST_SUBLINKS = [
@@ -21,6 +22,14 @@ const operationsLinks = [
   { to: '/ops/queue', label: 'Request Queue' },
 ];
 
+// Operations Manager gets everything Operations does, plus reviewing
+// transporter company registrations - plain Operations employees don't see
+// this link.
+const operationsManagerLinks = [
+  ...operationsLinks,
+  { to: '/ops/approvals', label: 'Pending Approvals' },
+];
+
 // AD Team - the second review stage, owning requests once Operations has
 // completed the driver profiles.
 const adTeamLinks = [
@@ -38,6 +47,12 @@ export default function Sidebar({ open = false, onClose = () => {} }) {
   const location = useLocation();
   const onNewRequestPage = NEW_REQUEST_SUBLINKS.some((l) => location.pathname === l.to);
   const [newRequestOpen, setNewRequestOpen] = useState(onNewRequestPage);
+  const [pendingCount, setPendingCount] = useState(0);
+
+  useEffect(() => {
+    if (!isOperationsManager) return;
+    listPendingUsers().then((res) => setPendingCount(res.data.length)).catch(() => {});
+  }, [isOperationsManager, location.pathname]);
 
   return (
     <>
@@ -66,9 +81,14 @@ export default function Sidebar({ open = false, onClose = () => {} }) {
       </NavLink>
       <nav className="flex-1 px-3 py-4 space-y-1">
         {isOperations || isOperationsManager ? (
-          operationsLinks.map((link) => (
+          (isOperationsManager ? operationsManagerLinks : operationsLinks).map((link) => (
             <NavLink key={link.to} to={link.to} end={link.to === '/'} onClick={onClose} className={navLinkClass}>
-              {link.label}
+              <span className="flex-1">{link.label}</span>
+              {link.to === '/ops/approvals' && pendingCount > 0 && (
+                <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-primary-500 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                  {pendingCount}
+                </span>
+              )}
             </NavLink>
           ))
         ) : isAdTeam ? (

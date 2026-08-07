@@ -1,4 +1,4 @@
-// Initial in-memory dataset - stands in for the real database 
+// Demo dataset loaded into MySQL by seedDb.js.
 export const DEMO_PASSWORD = 'Password123!';
 
 export function buildSeed() {
@@ -15,9 +15,6 @@ export function buildSeed() {
     { id: 7, employeeId: 'EMP007', fullName: 'Operations Manager', email: 'operations.manager@asmo.com', department: 'Operations', role: 'Operations Manager', managerId: null, isActive: true },
     { id: 8, employeeId: 'EMP008', fullName: 'Operations Team 2', email: 'operations2@asmo.com', department: 'Operations', role: 'Operations', managerId: 7, isActive: true },
   ];
-
-  const requestTypes = ['Create Driver', 'Modify Driver', 'Disable Driver'];
-  const requestStatuses = ['Submitted', 'Under Review – Operations Team', 'Returned to Requester', 'Processing – Operations Team', 'AD Team Review', 'Completed', 'Rejected'];
 
   const drivers = [
     { id: 1, requestId: 1, username: 'mohammed.saeed', firstName: 'Mohammed', lastName: 'Saeed', email: 'mohammed.saeed@asmo.com', phone: '0551234567', role: 'Privileged User', customerGroup: 'CUEU/ARCO', driverClass: '30Ton_Drivers', operatingHours: 'Sun-Thu 8:00-17:00', licenseNumber: '21832743719', licenseExpiry: '2026-11-30', hasInsurance: 'Yes', city: 'Khobar', poNumber: '4821211244768', poExpiry: '2026-11-30' },
@@ -112,20 +109,6 @@ export function buildSeed() {
     { id: 22, requestId: 7, oldStatus: 'Processing – Operations Team', newStatus: 'AD Team Review', changedBy: 6, remarks: 'Driver profiles completed by Operations. RPA triggered. Handed over to the AD Team.', createdAt: daysAgo(1) },
   ];
 
-  // Master list of already-existing/active drivers in the system (AD / DCT).
-  // Not read by any endpoint today - kept for parity with the frontend mock.
-  const driverDirectory = [
-    { username: 'ahmed.kabbani', firstName: 'Ahmed', lastName: 'Kabbani', email: 'ahmed.kabbani@asmo.com', phone: '0552112332', role: 'Privileged User', customerGroup: 'ARCO', driverClass: '30Ton_Drivers', operatingHours: 'Sun-Thu 8:00-17:00', poNumber: '481221221', poExpiry: '2026-12-20', status: 'Active' },
-    { username: 'mohammed.saeed', firstName: 'Mohammed', lastName: 'Saeed', email: 'mohammed.saeed@asmo.com', phone: '0551234567', role: 'Privileged User', customerGroup: 'CUEU/ARCO', driverClass: '30Ton_Drivers', operatingHours: 'Sun-Thu 8:00-17:00', poNumber: '4821211244768', poExpiry: '2026-11-30', status: 'Active' },
-    { username: 'khalid.nasser', firstName: 'Khalid', lastName: 'Nasser', email: 'khalid.nasser@asmo.com', phone: '0559876543', role: 'Privileged User', customerGroup: 'CUEU/ARCO', driverClass: '20Ton_Drivers', operatingHours: 'Sun-Thu 8:00-17:00', poNumber: '4821211244768', poExpiry: '2026-11-30', status: 'Active' },
-    { username: 'faisal.otaibi', firstName: 'Faisal', lastName: 'Otaibi', email: 'faisal.otaibi@asmo.com', phone: '0563345678', role: 'Privileged User', customerGroup: 'NADEC', driverClass: '20Ton_Drivers', operatingHours: 'Sat-Wed 7:00-16:00', poNumber: '5821334455', poExpiry: '2027-02-14', status: 'Active' },
-    { username: 'omar.rashid', firstName: 'Omar', lastName: 'Rashid', email: 'omar.rashid@asmo.com', phone: '0544456789', role: 'Privileged User', customerGroup: 'SABIC', driverClass: '10Ton_Drivers', operatingHours: 'Sun-Thu 8:00-17:00', poNumber: '5921445566', poExpiry: '2026-09-05', status: 'Active' },
-    { username: 'yousef.hamdan', firstName: 'Yousef', lastName: 'Hamdan', email: 'yousef.hamdan@asmo.com', phone: '0567891234', role: 'Privileged User', customerGroup: 'CUEU/ARCO', driverClass: '10Ton_Drivers', operatingHours: 'Sun-Thu 8:00-17:00', poNumber: '', poExpiry: '', status: 'Active' },
-    { username: 'nasser.qahtani', firstName: 'Nasser', lastName: 'Qahtani', email: 'nasser.qahtani@asmo.com', phone: '0509988776', role: 'Privileged User', customerGroup: 'ARCO', driverClass: '20Ton_Drivers', operatingHours: 'Sun-Thu 8:00-17:00', poNumber: '4821211244768', poExpiry: '2026-03-01', status: 'Inactive' },
-  ];
-
-  const attachments = [];
-
   const notifications = [
     { id: 1, userId: 1, requestId: 1, title: 'Request REQ-2026-0001 - Completed', message: 'Your request status changed to "Completed".', isRead: false, createdAt: daysAgo(2) },
     { id: 2, userId: 1, requestId: 4, title: 'Request REQ-2026-0004 - Rejected', message: 'Your request status changed to "Rejected". Remarks: Route was cancelled by the customer - driver account no longer needed.', isRead: false, createdAt: daysAgo(5) },
@@ -134,15 +117,10 @@ export function buildSeed() {
   ];
 
   return {
-    nextIds: { user: 9, request: 8, driver: 10, history: 23, attachment: 1, notification: 6 },
     users,
-    requestTypes,
-    requestStatuses,
     requests,
     drivers,
-    driverDirectory,
     history,
-    attachments,
     notifications,
   };
 }

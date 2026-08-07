@@ -5,6 +5,7 @@ import ProtectedRoute from '../components/layout/ProtectedRoute.jsx';
 import Spinner from '../components/common/Spinner.jsx';
 
 import Login from '../pages/Login.jsx';
+import Register from '../pages/Register.jsx';
 import RequesterDashboard from '../pages/requester/RequesterDashboard.jsx';
 import NewRequest from '../pages/requester/NewRequest.jsx';
 import MyRequests from '../pages/requester/MyRequests.jsx';
@@ -16,6 +17,7 @@ import Reports from '../pages/processor/Reports.jsx';
 import OperationsDashboard from '../pages/operations/OperationsDashboard.jsx';
 import OperationsQueue from '../pages/operations/OperationsQueue.jsx';
 import OperationsRequestDetails from '../pages/operations/OperationsRequestDetails.jsx';
+import PendingApprovals from '../pages/operations/PendingApprovals.jsx';
 import AdTeamDashboard from '../pages/adteam/AdTeamDashboard.jsx';
 import AdTeamQueue from '../pages/adteam/AdTeamQueue.jsx';
 import AdTeamRequestDetails from '../pages/adteam/AdTeamRequestDetails.jsx';
@@ -32,6 +34,7 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       <Route
         element={
@@ -69,6 +72,14 @@ export default function AppRoutes() {
           element={
             <ProtectedRoute allowedRoles={['Operations', 'Operations Manager', 'Admin']}>
               <OperationsRequestDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ops/approvals"
+          element={
+            <ProtectedRoute allowedRoles={['Operations Manager', 'Admin']}>
+              <PendingApprovals />
             </ProtectedRoute>
           }
         />

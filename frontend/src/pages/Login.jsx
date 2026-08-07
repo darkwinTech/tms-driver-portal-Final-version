@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate, useLocation, Link } from 'react-router';
 import { useAuth } from '../context/AuthContext.jsx';
 import Alert from '../components/common/Alert.jsx';
 
@@ -66,11 +66,12 @@ export default function Login() {
           </button>
         </form>
 
-        {/* <div className="mt-6 text-xs text-gray-400 border-t pt-4">
-          <p className="font-medium mb-1">Demo accounts (password: Password123!)</p>
-          <p>Requester: ahmed.alqabana@asmo.com</p>
-          <p>Processor: it.tms@asmo.com</p>
-        </div> */}
+        <p className="text-center text-sm text-gray-500 mt-6">
+          Transporter company?{' '}
+          <Link to="/register" className="text-primary-600 hover:underline font-medium">
+            Register your company
+          </Link>
+        </p>
       </div>
     </div>
   );
