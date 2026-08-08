@@ -35,11 +35,11 @@ export default function OperationsDashboard() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <StatCard label="New Requests" value={stats.newRequests} color="bg-blue-500" />
-        <StatCard label="Waiting Approval" value={stats.waitingApproval} color="bg-amber-500" />
-        <StatCard label="In Progress" value={stats.inProgress} color="bg-indigo-500" />
-        <StatCard label="Completed" value={stats.completed} color="bg-green-500" />
-        <StatCard label="Rejected" value={stats.rejected} color="bg-red-500" />
+        <StatCard label="New Requests" value={stats.newRequests} tone="blue" />
+        <StatCard label="Waiting Approval" value={stats.waitingApproval} tone="amber" />
+        <StatCard label="In Progress" value={stats.inProgress} tone="indigo" />
+        <StatCard label="Completed" value={stats.completed} tone="green" />
+        <StatCard label="Rejected" value={stats.rejected} tone="red" />
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200">

@@ -17,6 +17,13 @@ export default {
           800: '#9f500a',
           900: '#783c07',
         },
+        // Warm-dark sidebar palette, same hue family as `primary` (~22deg)
+        // so the menu reads as intentionally related rather than a random gray.
+        sidebar: {
+          DEFAULT: '#2b1a10',
+          hover: '#432819',
+          border: '#382215',
+        },
       },
     },
   },

@@ -36,9 +36,9 @@ export default function AdTeamDashboard() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        <StatCard label="Awaiting AD Review" value={stats.awaitingAction} color="bg-purple-500" />
-        <StatCard label="Completed" value={stats.completed} color="bg-green-500" />
-        <StatCard label="Rejected" value={stats.rejected} color="bg-red-500" />
+        <StatCard label="Awaiting AD Review" value={stats.awaitingAction} tone="purple" />
+        <StatCard label="Completed" value={stats.completed} tone="green" />
+        <StatCard label="Rejected" value={stats.rejected} tone="red" />
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200">

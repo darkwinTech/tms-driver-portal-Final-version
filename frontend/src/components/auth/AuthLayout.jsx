@@ -53,7 +53,7 @@ export default function AuthLayout({ activeTab, children }) {
                   className={`flex-1 text-center pb-3 text-sm font-medium border-b-2 transition-colors ${
                     isActive
                       ? 'border-primary-600 text-primary-600'
-                      : 'border-transparent text-gray-400 hover:text-gray-600'
+                      : 'border-transparent text-stone-400 hover:text-stone-600'
                   }`}
                 >
                   {tab.label.toUpperCase()}

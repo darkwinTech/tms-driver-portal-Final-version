@@ -39,7 +39,7 @@ const adTeamLinks = [
 
 const navLinkClass = ({ isActive }) =>
   `flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-    isActive ? 'bg-primary-600 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+    isActive ? 'bg-primary-600 text-white' : 'text-stone-300 hover:bg-sidebar-hover hover:text-white'
   }`;
 
 export default function Sidebar({ open = false, onClose = () => {} }) {
@@ -64,14 +64,14 @@ export default function Sidebar({ open = false, onClose = () => {} }) {
         />
       )}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-60 bg-gray-900 text-gray-100 flex flex-col shrink-0 transform transition-transform duration-200 ease-in-out md:static md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 w-60 bg-sidebar text-stone-100 flex flex-col shrink-0 transform transition-transform duration-200 ease-in-out md:static md:translate-x-0 ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
       <NavLink
         to="/"
         onClick={onClose}
-        className="h-16 flex items-center justify-center px-4 border-b border-gray-800"
+        className="h-16 flex items-center justify-center px-4 border-b border-sidebar-border"
         >
         <img
           src={logo}
@@ -113,7 +113,7 @@ export default function Sidebar({ open = false, onClose = () => {} }) {
               type="button"
               onClick={() => setNewRequestOpen((prev) => !prev)}
               className={`w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                onNewRequestPage ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                onNewRequestPage ? 'bg-sidebar-hover text-white' : 'text-stone-300 hover:bg-sidebar-hover hover:text-white'
               }`}
             >
               New Request
