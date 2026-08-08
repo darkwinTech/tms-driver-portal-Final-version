@@ -1,4 +1,5 @@
-// from. Never reach into data/store.js directly outside of data/repositories/*.
+// Controllers/services import from here - never reach into data/db.js
+// directly outside of data/repositories/*.
 import * as userRepository from './repositories/userRepository.js';
 import * as requestRepository from './repositories/requestRepository.js';
 import * as driverRepository from './repositories/driverRepository.js';

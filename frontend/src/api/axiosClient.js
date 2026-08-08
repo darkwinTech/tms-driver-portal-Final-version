@@ -7,7 +7,7 @@ const apiClient = axios.create({
 
 // Endpoints that must NOT carry a (possibly stale) Bearer token - no token
 // exists yet when these are called.
-const AUTH_FREE_PATHS = ['/auth/login', '/auth/register'];
+const AUTH_FREE_PATHS = ['/auth/login', '/auth/register', '/auth/register-transporter'];
 
 apiClient.interceptors.request.use((config) => {
   const isAuthFree = AUTH_FREE_PATHS.some((p) => config.url?.startsWith(p));

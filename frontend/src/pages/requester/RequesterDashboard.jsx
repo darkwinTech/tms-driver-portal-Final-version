@@ -33,10 +33,10 @@ export default function RequesterDashboard() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <StatCard label="Pending" value={stats.pending} color="bg-amber-500" />
-        <StatCard label="In Processing" value={stats.approved} color="bg-teal-500" />
-        <StatCard label="Rejected" value={stats.rejected} color="bg-red-500" />
-        <StatCard label="Completed" value={stats.completed} color="bg-green-500" />
+        <StatCard label="Pending" value={stats.pending} tone="amber" />
+        <StatCard label="In Processing" value={stats.approved} tone="indigo" />
+        <StatCard label="Rejected" value={stats.rejected} tone="red" />
+        <StatCard label="Completed" value={stats.completed} tone="green" />
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200">

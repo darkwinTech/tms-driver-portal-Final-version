@@ -13,7 +13,7 @@ npm run dev
 
 Opens at `http://localhost:5173`.
 
-### Demo accounts (password for all: `cc`)
+### Demo accounts (password for all: `Password123!`)
 
 | Email | Role |
 | --- | --- |
@@ -28,14 +28,15 @@ Opens at `http://localhost:5173`.
 
 ### Workflow
 
-Each request type follows its own path (see `../backend/src/workflow.js`):
+Each request type follows its own path (see
+`../backend/src/utils/workflow.js`):
 
-- **Create Driver**: `Submitted → Under Review → Processing → AD Team Review → RPA Triggered → Completed`, with `Returned to Requester`/`Rejected` available off Under Review. Operations reviews first and completes the hidden driver-profile fields (Group/Customer, Driver Class, Operating Hours) during Processing before handing off to the AD Team, who either Reject (mandatory reason) or Approve & Trigger RPA, then mark the request Completed once account creation is confirmed externally.
+- **Create Driver**: `Submitted → Under Review – Operations Team → Processing – Operations Team → AD Team Review → Completed`, with `Returned to Requester`/`Rejected` available off Under Review. Operations reviews first and completes the hidden driver-profile fields (Group/Customer, Driver Class, Operating Hours) during Processing - completing them triggers the RPA/ServiceNow handoff immediately and hands the request to the AD Team, who confirm the external work is done ("Mark as Complete").
 - **Modify Driver**: `Submitted → Completed | Rejected` — a single Operations decision (Accept applies the change directly to the driver's record, no AD Team involved).
-- **Disable Driver**: `Submitted → AD Team Review → RPA Triggered → Completed`, or `Rejected` at Submitted — Operations accepts and forwards to the AD Team, who own the actual account disablement.
+- **Disable Driver**: `Submitted → AD Team Review → Completed`, or `Rejected` at Submitted — accepting the request both triggers RPA and hands it to the AD Team in the same action, since disabling the account is their job.
 
 Account creation/disablement happens outside this application: the backend
-sends a handoff email to ServiceNow directly via Microsoft Graph
+sends a handoff email to ServiceNow over SMTP
 (`backend/src/services/serviceNowEmailService.js`); this app has no further
 visibility once that email is sent.
 

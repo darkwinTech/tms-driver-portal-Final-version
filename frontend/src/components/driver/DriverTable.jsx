@@ -260,7 +260,7 @@ export default function DriverTable({
                   ))}
                   {hasDriverStatus && (
                     <td className="px-3 py-2 whitespace-nowrap">
-                      <span className="px-2 py-0.5 rounded-full text-xs bg-orange-100 text-orange-700">
+                      <span className="px-2 py-0.5 rounded-full text-xs bg-primary-100 text-primary-700">
                         {row.driverStatus || '-'}
                       </span>
                     </td>
